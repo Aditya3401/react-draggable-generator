@@ -1,10 +1,21 @@
-import { Box, IconButton, Paper, Typography } from "@mui/material";
-import React from "react";
+import { Box, IconButton, Paper, TextField, Typography } from "@mui/material";
+import React, { useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import DeleteIcon from "@mui/icons-material/Delete";
 import EditIcon from "@mui/icons-material/Edit";
+import "../Css/SelectedSection.css";
+import SaveIcon from "@mui/icons-material/Save";
 
 const SelectedSection = ({ destinationData, setDestinationData }) => {
+  const [isDisabled, setIsDisabled] = useState(true);
+
+  const handleEditItem = (id) => {
+    setIsDisabled((prev) => ({
+      ...prev,
+      [id]: !prev[id],
+    }));
+  };
+
   const onDrop = (result) => {
     console.log(result);
   };
@@ -57,7 +68,16 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
                         }}
                       >
                         {item.type === "text" ? (
-                          <Typography>{item.info}</Typography>
+                          <TextField
+                            variant="standard"
+                            disabled={!isDisabled[item.id]}
+                            multiline
+                            InputProps={{
+                              disableUnderline: true,
+                            }}
+                            defaultValue={item.info}
+                            sx={{ width: "100%", "& input": { color: "#fff" } }}
+                          />
                         ) : (
                           <img
                             src={item.url}
@@ -77,15 +97,22 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
                         </IconButton>
                         {item.type === "text" ? (
                           <IconButton
+                            onClick={() => handleEditItem(item.id)}
                             sx={{
                               position: "absolute",
                               right: 25,
                               top: 3,
                             }}
                           >
-                            <EditIcon
-                              sx={{ color: "#1974D2", fontSize: "16px" }}
-                            />
+                            {!isDisabled[item.id] ? (
+                              <EditIcon
+                                sx={{ color: "#1974D2", fontSize: "16px" }}
+                              />
+                            ) : (
+                              <SaveIcon
+                                sx={{ color: "#4CAF50", fontSize: "16px" }}
+                              />
+                            )}
                           </IconButton>
                         ) : null}
                       </Paper>
