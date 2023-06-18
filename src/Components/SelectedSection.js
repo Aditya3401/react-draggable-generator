@@ -10,10 +10,25 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
   const [isDisabled, setIsDisabled] = useState(true);
 
   const handleEditItem = (id) => {
-    setIsDisabled((prev) => ({
-      ...prev,
-      [id]: !prev[id],
-    }));
+    if (isDisabled[id]) {
+      setIsDisabled((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
+      console.log("changes done");
+    } else {
+      setIsDisabled((prev) => ({
+        ...prev,
+        [id]: !prev[id],
+      }));
+      console.log("now edit");
+    }
+  };
+
+  const handleEdittedText = (id, value) => {
+    setDestinationData((prev) =>
+      prev.map((data) => (data.id === id ? { ...data, info: value } : data))
+    );
   };
 
   const onDrop = (result) => {
@@ -71,11 +86,14 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
                           <TextField
                             variant="standard"
                             disabled={!isDisabled[item.id]}
+                            onChange={(event) =>
+                              handleEdittedText(item.id, event.target.value)
+                            }
                             multiline
                             InputProps={{
                               disableUnderline: true,
                             }}
-                            defaultValue={item.info}
+                            value={item.info}
                             sx={{ width: "100%", "& input": { color: "#fff" } }}
                           />
                         ) : (
