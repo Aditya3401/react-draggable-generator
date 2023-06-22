@@ -18,27 +18,12 @@ export default function Navbar() {
       >
         <Box sx={{ display: "flex", justifyContent: "space-between" }}>
           <Box sx={{ display: "flex", alignItems: "center" }}>
-            <Box sx={{ mr: 1 }}>
-              <img
-                alt="logo"
-                src="assets/logo.png"
-                style={{ height: "30px", width: "30px" }}
-              />
-            </Box>
-            <Box>
-              <Typography sx={{ fontWeight: "500", fontFamily: "Inter" }}>
-                DreamStudio
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "10px",
-                  fontWeight: "300",
-                  fontFamily: "Inter",
-                }}
-              >
-                by stability.ai
-              </Typography>
-            </Box>
+            {/* <img src="assets/logo1.png" alt="logo" />
+            <img
+              src="assets/logo2.png"
+              alt="logo"
+              style={{ filter: "brightness(0) invert(1)" }}
+            /> */}
           </Box>
           <Box sx={{ alignItems: "center" }}>
             <Button

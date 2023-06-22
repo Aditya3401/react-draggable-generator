@@ -1,4 +1,13 @@
-import { Box, IconButton, Paper, TextField, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  IconButton,
+  Pagination,
+  Paper,
+  Stack,
+  TextField,
+  Typography,
+} from "@mui/material";
 import React, { useState } from "react";
 import { Draggable, Droppable } from "react-beautiful-dnd";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -6,8 +15,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import "../Css/SelectedSection.css";
 import SaveIcon from "@mui/icons-material/Save";
 
-const SelectedSection = ({ destinationData, setDestinationData }) => {
+const SelectedSection = ({ destinationData, setDestinationData, pages }) => {
   const [isDisabled, setIsDisabled] = useState(true);
+  const [currentPage, setCurrentPage] = useState(1);
+
+  const handlePageChange = (event, newPage) => {
+    setCurrentPage(newPage);
+  };
 
   const handleEditItem = (id) => {
     if (isDisabled[id]) {
@@ -40,10 +54,14 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
     setDestinationData(updatedItems);
   };
 
+  const currentSelectedPage = destinationData.find(
+    (obj) => obj.page === currentPage
+  );
+
   return (
     <>
       <Box sx={{ padding: "10px", ml: 2, mr: 2 }}>
-        <Box>
+        <Box display="flex" justifyContent="space-between">
           <Typography
             sx={{
               color: "#fff",
@@ -52,21 +70,42 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
               fontWeight: "300",
             }}
           >
-            Selected
+            Final Content
           </Typography>
+          <Button
+            size="small"
+            variant="contained"
+            sx={{
+              textTransform: "capitalize",
+              background: "rgb(253, 169, 45)",
+              boxShadow: "rgba(253, 169, 45, 0.24) 0px 8px 16px 0px",
+              fontWeight: "400",
+              fontFamily: "Inter",
+              fontSize: "0.875rem",
+              padding: "4px 12px",
+              borderRadius: "8px",
+              "&:hover": {
+                boxShadow: "none",
+                backgroundColor: "rgb(182, 104, 22)",
+              },
+            }}
+          >
+            Generate Slides
+          </Button>
         </Box>
 
-        {destinationData && (
-          <Droppable droppableId="paperDestination" onDrop={onDrop}>
+        {currentSelectedPage && (
+          <Droppable droppableId={currentSelectedPage.id} onDrop={onDrop}>
             {(provided) => (
               <Box
                 ref={provided.innerRef}
                 {...provided.droppableProps}
                 sx={{
-                  minHeight: "80vh",
+                  minHeight: "75vh",
+                  mt: 2,
                 }}
               >
-                {destinationData.map((item, index) => (
+                {currentSelectedPage.items.map((item, index) => (
                   <Draggable key={item.id} draggableId={item.id} index={index}>
                     {(provided) => (
                       <Paper
@@ -78,7 +117,7 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
                           background: "#3F3F46",
                           color: "#fff",
                           padding: "15px",
-                          mt: 2,
+                          mb: 2,
                           paddingTop: 4,
                         }}
                       >
@@ -142,6 +181,17 @@ const SelectedSection = ({ destinationData, setDestinationData }) => {
             )}
           </Droppable>
         )}
+
+        <Box display="flex" justifyContent="center" sx={{ mt: 2 }}>
+          {/* <Typography>Page: {page}</Typography> */}
+          <Pagination
+            count={pages}
+            shape="rounded"
+            page={currentPage}
+            onChange={handlePageChange}
+            color="primary"
+          />
+        </Box>
       </Box>
     </>
   );

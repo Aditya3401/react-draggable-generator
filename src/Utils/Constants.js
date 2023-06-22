@@ -51,3 +51,70 @@ export const imageData = [
     url: "https://imagekit.io/blog/content/images/2019/12/image-optimization.jpg",
   },
 ];
+
+export const styleData = [
+  {
+    img: "assets/StylesImage/enhance.png",
+    title: "Enhance",
+  },
+  {
+    img: "assets/StylesImage/anime.png",
+    title: "Anime",
+  },
+  {
+    img: "assets/StylesImage/photographic.png",
+    title: "Photographic",
+  },
+  {
+    img: "assets/StylesImage/digital-art.png",
+    title: "Digital art",
+  },
+  {
+    img: "assets/StylesImage/comic-book.png",
+    title: "Comic book",
+  },
+  {
+    img: "assets/StylesImage/fantasy-art.png",
+    title: "Fantasy art",
+  },
+  {
+    img: "assets/StylesImage/analog-film.png",
+    title: "Analog film",
+  },
+  {
+    img: "assets/StylesImage/neon-punk.png",
+    title: "Neon punk",
+  },
+  {
+    img: "assets/StylesImage/isometric.png",
+    title: "Isometric",
+  },
+  {
+    img: "assets/StylesImage/low-poly.png",
+    title: "Low poly",
+  },
+  {
+    img: "assets/StylesImage/origami.png",
+    title: "Origami",
+  },
+  {
+    img: "assets/StylesImage/line-art.png",
+    title: "Line art",
+  },
+  {
+    img: "assets/StylesImage/modeling-compound.png",
+    title: "Craft clay",
+  },
+  {
+    img: "assets/StylesImage/cinematic.png",
+    title: "Cinematic",
+  },
+  {
+    img: "assets/StylesImage/3d-model.png",
+    title: "3d model",
+  },
+  {
+    img: "assets/StylesImage/pixel-art.png",
+    title: "Pixel art",
+  },
+];

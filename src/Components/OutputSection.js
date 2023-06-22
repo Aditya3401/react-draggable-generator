@@ -15,7 +15,7 @@ const OutputSection = ({ sourceData }) => {
               fontWeight: "300",
             }}
           >
-            Output
+            Suggestions
           </Typography>
         </Box>
 
