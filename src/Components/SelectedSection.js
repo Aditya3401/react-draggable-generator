@@ -24,25 +24,31 @@ const SelectedSection = ({ destinationData, setDestinationData, pages }) => {
   };
 
   const handleEditItem = (id) => {
-    if (isDisabled[id]) {
-      setIsDisabled((prev) => ({
-        ...prev,
-        [id]: !prev[id],
-      }));
-      console.log("changes done");
-    } else {
-      setIsDisabled((prev) => ({
-        ...prev,
-        [id]: !prev[id],
-      }));
-      console.log("now edit");
-    }
+    setIsDisabled((prev) => {
+      const updatedState = { ...prev };
+      updatedState[id] = !prev[id];
+      return updatedState;
+    });
+    console.log(isDisabled[id] ? "changes done" : "now edit");
+    console.log(destinationData);
   };
 
   const handleEdittedText = (id, value) => {
-    setDestinationData((prev) =>
-      prev.map((data) => (data.id === id ? { ...data, info: value } : data))
-    );
+    setDestinationData((prevData) => {
+      const updatedData = prevData.map((droppable) => {
+        if (droppable.page === currentPage) {
+          const updatedItems = droppable.items.map((item) => {
+            if (item.id === id) {
+              return { ...item, info: value };
+            }
+            return item;
+          });
+          return { ...droppable, items: updatedItems };
+        }
+        return droppable;
+      });
+      return updatedData;
+    });
   };
 
   const onDrop = (result) => {
@@ -50,8 +56,19 @@ const SelectedSection = ({ destinationData, setDestinationData, pages }) => {
   };
 
   const handleRemoveItem = (id) => {
-    const updatedItems = destinationData.filter((item) => item.id !== id);
-    setDestinationData(updatedItems);
+    setDestinationData((prevData) => {
+      const updatedData = [...prevData];
+      const currentPageIndex = updatedData.findIndex(
+        (droppable) => droppable.page === currentPage
+      );
+      if (currentPageIndex !== -1) {
+        const updatedItems = updatedData[currentPageIndex].items.filter(
+          (item) => item.id !== id
+        );
+        updatedData[currentPageIndex].items = updatedItems;
+      }
+      return updatedData;
+    });
   };
 
   const currentSelectedPage = destinationData.find(

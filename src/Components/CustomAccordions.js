@@ -178,6 +178,7 @@ export default function CustomAccordions({
             disabled={disablePage}
             onChange={handlePages}
             defaultValue={1}
+            value={pages}
             getAriaValueText={valuetext}
             //valueLabelDisplay="auto"
             step={1}
